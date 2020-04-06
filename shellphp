@@ -1,0 +1,25 @@
+#! /usr/bin/php
+
+<?php
+
+$er = [];
+$str =  exec('php -v',$er);
+
+$ver ='';
+$ver = mb_substr($er[0], 4, 3);
+
+/*
+$str = exec('php -v');
+$ver ='';
+for ($i=4; $i<=6; $i++) {
+    $ver .= $i;
+}
+*/
+
+
+exec('sudo a2dismod php'.$ver);
+exec('sudo a2enmod php'.$argv[1]);
+exec('sudo update-alternatives  --set php /usr/bin/php'.$argv[1]);
+exec('sudo service apache2 reload');
+?>
+

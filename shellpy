@@ -1,0 +1,24 @@
+#! /usr/bin/env python3
+
+import os
+import sys
+
+disable = [
+    'sudo a2dismod php7.4',
+    'sudo a2dismod php7.3',
+    'sudo a2dismod php7.2',
+    'sudo a2dismod php7.1',
+    'sudo a2dismod php5.6'
+]
+
+list = [
+    'sudo a2enmod php{0}'.format(sys.argv[1]),
+    'sudo service apache2 restart',
+    'sudo update-alternatives  --set php /usr/bin/php{0}'.format(sys.argv[1])
+]
+
+for i in disable:
+    os.system(i)
+
+for i in list:
+    os.system(i)
