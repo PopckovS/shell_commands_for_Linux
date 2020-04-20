@@ -10,6 +10,8 @@
 Обновление всей системы
     sudo apt-get update
 
+Установка КУРЛОВ(curl) для Linux
+    sudo apt install curl
 
 Установка tor, установка telegramm через tor
 
@@ -35,6 +37,8 @@
             sudo service apache2 reload
 
 
+
+
 Установка git (git не будет установлен если система не прошла обновление sudo apt-get update)
     sudo apt install git
     git --version
@@ -42,6 +46,9 @@
     Вносим данные в наш git, говорим ему кто мы и какой у нас email
         git config --global user.email "popckovM5@yandex.com"
         git config --global user.name "PopckovS"
+
+
+
 
 Все для MySQL
     Установка
@@ -167,6 +174,63 @@ sis
 
     Настройка
         sudo service ssh stop|start|restart
+
+
+
+
+Дискорд
+    sudo apt install snapd spand-xdg-open
+    sudo snap install discord
+
+
+
+Установка Steam
+    sudo add-apt-repository multiverse
+    sudo apt update
+    sudo apt install steam-installer
+
+
+Установка в Linux утилит для работы Деплоера(deployer)
+    Установка с официального сайта - https://deployer.org/download/
+    sudo curl -LO https://deployer.org/deployer.phar
+    sudo mv deployer.phar /usr/local/bin/dep
+    sudo chmod +x /usr/local/bin/dep
+
+    Использование деплоера:
+        1) Как запушить через изменения на сервер, с указанием ветки на битбакете.
+            dep deploy mgd —branch=dev
+            пример dep deploy test --branch=task-107-change_section_1_structure
+
+
+SSH и работа с ним
+    Ссылки для чтения - https://habr.com/en/post/122445/
+    Ссылки для чтения - http://xgu.ru/wiki/ssh-copy-id
+    создаем у себя в .ssh ключи
+        cd ~/.ssh &&  ssh-keygen -t rsa
+    далее вводим название ключа, к примеру
+        id_rsa
+    затем дважды задаем пароль
+        12345
+        12345
+    После этого у нас сгенерируются 2 ключа
+        id_rsa
+        id_rsa.pub
+
+    Теперь у нас есть 2 ключа, предположим что есть удаленный сервер к которму мы хотим
+    соединяться по средством ssh, тоесть нам нужно поместить наш секретный ключ на сервер
+    в директорию .ssh в файл с конфигурациями под названием authorized_keys
+    Делается это при помощи специальной утилиты ssh-copy-id:
+        ssh-copy-id -i id_rsa user@host
+    Если порт на машине, к которой Вы пытаетесь получить доступ, отличается от
+    "стандартного" (т.е. НЕ 22 порт), необходимо указать TCP-порт вручную следующим образом:
+        ssh-copy-id -p 2202 -i ~/.ssh/id_dsa  user@host
+    Или этой  командой, в зависимсоти от того где находитесь
+        ssh-copy-id -p 2202 -i id_dsa  user@host
+    После этого потребется ввести пароль к хосту(ip)
+        user@host's password:
+
+
+
 
 
 
