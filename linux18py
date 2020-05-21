@@ -1,0 +1,96 @@
+#! /usr/bin/env python3
+
+import os
+import sys
+
+# Начальная установка всех необходимых программ и обновлений
+# для Linux 18.04 Если требуется получить
+# параметры из терминала sys.argv[1] это массив с параметрами
+
+# Обновление всей системы
+# Установка unzip, curl, htop, net-tools, gnome-tweaks, wine,
+# redis, composer, filezilla, ssh, discord, skype
+programms = [
+    'sudo apt-get update',
+    'sudo apt-get upgrade -y',
+    'sudo apt install unzip -y',
+    'sudo apt install curl -y',
+    'sudo apt install htop',
+    'sudo apt install net-tools',
+    'sudo apt install gnome-tweaks -y',
+    'sudo apt install wine-stable -y',
+    'sudo apt install redis-server -y',
+    'sudo apt-get install composer -y',
+    'sudo apt-get install filezilla -y',
+    'sudo apt-get install ssh -y',
+    'sudo apt install snapd spand-xdg-open',
+    'sudo snap install discord',
+    'sudo snap install skype --classic'
+]
+
+# Установка Google Chrom
+google_chrom = [
+    'wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -',
+    '''sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' ''',
+    'sudo apt-get update',
+    'sudo apt-get install google-chrome-stable -y',
+]
+
+# Установка веб-сервера Апачь
+apache2 = [
+    'sudo apt install apache2 -y',
+    'sudo a2enmod rewrite',
+    'sudo systemctl enable apache2'
+]
+
+# Установка git
+git = [
+    'sudo apt install git',
+    'git config --global user.email "popckovM5@yandex.com"',
+    'git config --global user.name "PopckovS"'
+]
+
+# СУБД MySQL
+mysql = [
+    'sudo apt-get install mysql-server -y'
+]
+
+# Установка php 7.1/7.2/7.4 через добавление репозитория PPA
+php = [
+    'sudo add-apt-repository ppa:ondrej/php',
+    'sudo apt-get update'
+]
+
+php71 = [
+    'sudo apt-get install php7.1 -y',
+    'sudo apt-get install php7.1-xml php7.1-mysql php7.1-gd php7.1-mbstring php7.1-json php7.1-intl php7.1-zip php7.1-curl php7.1-pgsql -y'
+]
+
+php72 = [
+    'sudo apt-get install php7.2 -y',
+    'sudo apt-get install php7.2-xml php7.2-mysql php7.2-gd php7.2-mbstring php7.2-json php7.2-intl php7.2-zip php7.2-curl php7.2-pgsql -y'
+]
+
+php74 = [
+    'sudo apt-get install php7.4 -y',
+    'sudo apt-get install php7.4-xml php7.4-mysql php7.4-gd php7.4-mbstring php7.4-json php7.4-intl php7.4-zip php7.4-curl php7.4-pgsql -y'
+]
+
+# Установка php deployer
+deployer = [
+    'sudo curl -LO https://deployer.org/deployer.phar',
+    'sudo mv deployer.phar /usr/local/bin/dep',
+    'sudo chmod +x /usr/local/bin/dep'
+]
+
+# Финальный массив с подмассивами
+list = [programms, google_chrom, apache2, git, mysql, php, php71, php72, php74, deployer, deployer]
+
+# Функция для запуска на исполнение всех команд
+def printShell(list):
+    for source in list:
+        for element in source: # для каждого подмассива в массиве
+            os.system(element) # исполненеи команды
+
+# запускаем функцию на выполнение
+printShell(list)
