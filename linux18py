@@ -61,6 +61,11 @@ php = [
     'sudo apt-get update'
 ]
 
+php56 = [
+    'sudo apt-get install php5.6 -y',
+    'sudo apt-get install php5.6-xml php5.6-mysql php5.6-gd php5.6-mbstring php5.6-json php5.6-intl php5.6-zip php5.6-curl php5.6-pgsql -y'
+]
+
 php71 = [
     'sudo apt-get install php7.1 -y',
     'sudo apt-get install php7.1-xml php7.1-mysql php7.1-gd php7.1-mbstring php7.1-json php7.1-intl php7.1-zip php7.1-curl php7.1-pgsql -y'
@@ -84,7 +89,7 @@ deployer = [
 ]
 
 # Финальный массив с подмассивами
-list = [programms, google_chrom, apache2, git, mysql, php, php71, php72, php74, deployer, deployer]
+list = [programms, google_chrom, apache2, git, mysql, php, php56, php71, php72, php74, deployer, deployer]
 
 # Функция для запуска на исполнение всех команд
 def printShell(list):
