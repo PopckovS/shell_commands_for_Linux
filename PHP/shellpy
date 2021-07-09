@@ -12,9 +12,9 @@ disable = [
 ]
 
 list = [
-    'sudo a2enmod php{0}'.format(sys.argv[1]),
+    'sudo a2enmod PHP{0}'.format(sys.argv[1]),
     'sudo service apache2 restart',
-    'sudo update-alternatives  --set php /usr/bin/php{0}'.format(sys.argv[1])
+    'sudo update-alternatives  --set PHP /usr/bin/PHP{0}'.format(sys.argv[1])
 ]
 
 for i in disable:

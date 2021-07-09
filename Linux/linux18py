@@ -3,13 +3,16 @@
 import os
 import sys
 
-# Начальная установка всех необходимых программ и обновлений
-# для Linux 18.04 Если требуется получить
-# параметры из терминала sys.argv[1] это массив с параметрами
+"""
+Начальная установка всех необходимых программ и обновлений 
+для Linux 18.04 после установки Linux.
 
-# Обновление всей системы
-# Установка unzip, curl, htop, net-tools, gnome-tweaks, wine,
-# redis, composer, filezilla, ssh, discord, skype
+Обновление всей системы.
+Установка: unzip, curl, htop, net-tools, gnome-tweaks, wine,
+redis, composer, filezilla, ssh, discord, skype, php-deployer,
+php версии 5.6-7.4, google_chrom, сервер apache2 и прочее ...
+"""
+
 programms = [
     'sudo apt-get update',
     'sudo apt-get upgrade -y',
@@ -55,9 +58,9 @@ mysql = [
     'sudo apt-get install mysql-server -y'
 ]
 
-# Установка php 7.1/7.2/7.4 через добавление репозитория PPA
+# Установка PHP 7.1/7.2/7.4 через добавление репозитория PPA
 php = [
-    'sudo add-apt-repository ppa:ondrej/php',
+    'sudo add-apt-repository ppa:ondrej/PHP',
     'sudo apt-get update'
 ]
 
@@ -81,7 +84,7 @@ php74 = [
     'sudo apt-get install php7.4-xml php7.4-mysql php7.4-gd php7.4-mbstring php7.4-json php7.4-intl php7.4-zip php7.4-curl php7.4-pgsql -y'
 ]
 
-# Установка php deployer
+# Установка PHP deployer
 deployer = [
     'sudo curl -LO https://deployer.org/deployer.phar',
     'sudo mv deployer.phar /usr/local/bin/dep',
@@ -89,13 +92,14 @@ deployer = [
 ]
 
 # Финальный массив с подмассивами
-list = [programms, google_chrom, apache2, git, mysql, php, php56, php71, php72, php74, deployer, deployer]
+list_source = [programms, google_chrom, apache2, git, mysql, php, php56, php71, php72, php74, deployer, deployer]
 
-# Функция для запуска на исполнение всех команд
-def printShell(list):
-    for source in list:
-        for element in source: # для каждого подмассива в массиве
-            os.system(element) # исполненеи команды
 
-# запускаем функцию на выполнение
-printShell(list)
+def printShell(list_source):
+    """Функция для запуска на исполнение всех команд."""
+    for source in list_source:
+        for element in source: # для каждого под массива в массиве
+            os.system(element) # исполнение команды
+
+
+printShell(list_source)
