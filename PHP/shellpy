@@ -3,6 +3,7 @@
 import os
 import sys
 
+# Выключаем работающую версию php
 disable = [
     'sudo a2dismod php7.4',
     'sudo a2dismod php7.3',
@@ -11,14 +12,20 @@ disable = [
     'sudo a2dismod php5.6'
 ]
 
-list = [
+# Перезагрузка сервиса и включение новой версии php
+restart_commands = [
     'sudo a2enmod PHP{0}'.format(sys.argv[1]),
     'sudo service apache2 restart',
     'sudo update-alternatives  --set PHP /usr/bin/PHP{0}'.format(sys.argv[1])
 ]
 
-for i in disable:
-    os.system(i)
 
-for i in list:
-    os.system(i)
+def start():
+    for i in disable:
+        os.system(i)
+
+    for i in restart_commands:
+        os.system(i)
+
+
+start()
