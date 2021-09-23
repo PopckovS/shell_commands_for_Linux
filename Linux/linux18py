@@ -7,99 +7,164 @@ import sys
 Начальная установка всех необходимых программ и обновлений 
 для Linux 18.04 после установки Linux.
 
-Обновление всей системы.
-Установка: unzip, curl, htop, net-tools, gnome-tweaks, wine,
-redis, composer, filezilla, ssh, discord, skype, php-deployer,
-php версии 5.6-7.4, google_chrom, сервер apache2 и прочее ...
+Модуль содержит класс InstallRegistration.
+Зарегистрируйте свою функцию, следующим образом
+
+    IR.register(get_programms)
+
+Функция должна возвращать список с пакетами для установки.
+Вызовите функцию установки пакетов  
+
+    IR.install_all_registered_function()
 """
 
-programms = [
-    'sudo apt-get update',
-    'sudo apt-get upgrade -y',
-    'sudo apt install unzip -y',
-    'sudo apt install curl -y',
-    'sudo apt install htop',
-    'sudo apt install net-tools',
-    'sudo apt install gnome-tweaks -y',
-    'sudo apt install wine-stable -y',
-    'sudo apt install redis-server -y',
-    'sudo apt-get install composer -y',
-    'sudo apt-get install filezilla -y',
-    'sudo apt-get install ssh -y',
-    'sudo apt install snapd spand-xdg-open',
-    'sudo snap install discord',
-    'sudo snap install skype --classic'
-]
 
-# Установка Google Chrom
-google_chrom = [
-    'wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -',
-    '''sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' ''',
-    'sudo apt-get update',
-    'sudo apt-get install google-chrome-stable -y',
-]
-
-# Установка веб-сервера Апачь
-apache2 = [
-    'sudo apt install apache2 -y',
-    'sudo a2enmod rewrite',
-    'sudo systemctl enable apache2'
-]
-
-# Установка git
-git = [
-    'sudo apt install git',
-    'git config --global user.email "popckovM5@yandex.com"',
-    'git config --global user.name "PopckovS"'
-]
-
-# СУБД MySQL
-mysql = [
-    'sudo apt-get install mysql-server -y'
-]
-
-# Установка PHP 7.1/7.2/7.4 через добавление репозитория PPA
-php = [
-    'sudo add-apt-repository ppa:ondrej/PHP',
-    'sudo apt-get update'
-]
-
-php56 = [
-    'sudo apt-get install php5.6 -y',
-    'sudo apt-get install php5.6-xml php5.6-mysql php5.6-gd php5.6-mbstring php5.6-json php5.6-intl php5.6-zip php5.6-curl php5.6-pgsql -y'
-]
-
-php71 = [
-    'sudo apt-get install php7.1 -y',
-    'sudo apt-get install php7.1-xml php7.1-mysql php7.1-gd php7.1-mbstring php7.1-json php7.1-intl php7.1-zip php7.1-curl php7.1-pgsql -y'
-]
-
-php72 = [
-    'sudo apt-get install php7.2 -y',
-    'sudo apt-get install php7.2-xml php7.2-mysql php7.2-gd php7.2-mbstring php7.2-json php7.2-intl php7.2-zip php7.2-curl php7.2-pgsql -y'
-]
-
-php74 = [
-    'sudo apt-get install php7.4 -y',
-    'sudo apt-get install php7.4-xml php7.4-mysql php7.4-gd php7.4-mbstring php7.4-json php7.4-intl php7.4-zip php7.4-curl php7.4-pgsql -y'
-]
-
-# Установка PHP deployer
-deployer = [
-    'sudo curl -LO https://deployer.org/deployer.phar',
-    'sudo mv deployer.phar /usr/local/bin/dep',
-    'sudo chmod +x /usr/local/bin/dep'
-]
-
-# Финальный массив с подмассивами
-list_source = [programms, google_chrom, apache2, git, mysql, php, php56, php71, php72, php74, deployer, deployer]
+def get_programms():
+    """Обновление и установка основных команд"""
+    return [
+        'sudo apt-get update',
+        'sudo apt-get upgrade -y',
+        'sudo apt install unzip -y',
+        'sudo apt install curl -y',
+        'sudo apt install htop',
+        'sudo apt install net-tools',
+        'sudo apt install gnome-tweaks -y',
+        'sudo apt install wine-stable -y',
+        'sudo apt install redis-server -y',
+        'sudo apt-get install composer -y',
+        'sudo apt-get install filezilla -y',
+        'sudo apt-get install ssh -y',
+        'sudo apt install snapd spand-xdg-open',
+        'sudo snap install discord',
+        'sudo snap install skype --classic'
+    ]
 
 
-def printShell(list_source):
-    """Функция для запуска на исполнение всех команд."""
-    for source in list_source:
-        for element in source: # для каждого под массива в массиве
-            os.system(element) # исполнение команды
+def get_google_chrom():
+    """Установка Google Chrom"""
+    return [
+        'wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -',
+        '''sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> 
+        /etc/apt/sources.list.d/google-chrome.list' ''',
+        'sudo apt-get update',
+        'sudo apt-get install google-chrome-stable -y',
+    ]
 
 
-printShell(list_source)
+def get_apache2():
+    """Установка веб-сервера apache2"""
+    return [
+        'sudo apt install apache2 -y',
+        'sudo a2enmod rewrite',
+        'sudo systemctl enable apache2'
+    ]
+
+
+def get_mysql():
+    """СУБД MySQL"""
+    return [
+        'sudo apt-get install mysql-server -y'
+    ]
+
+
+def get_php():
+    """Установка PHP 7.1/7.2/7.4 через добавление репозитория PPA"""
+    return [
+        'sudo add-apt-repository ppa:ondrej/PHP',
+        'sudo apt-get update'
+    ]
+
+
+def get_php56():
+    return [
+        'sudo apt-get install php5.6 -y',
+        'sudo apt-get install php5.6-xml php5.6-mysql php5.6-gd php5.6-mbstring php5.6-json php5.6-intl '
+        'php5.6-zip php5.6-curl php5.6-pgsql -y'
+    ]
+
+
+def get_php71():
+    return [
+        'sudo apt-get install php7.1 -y',
+        'sudo apt-get install php7.1-xml php7.1-mysql php7.1-gd php7.1-mbstring php7.1-json php7.1-intl'
+        ' php7.1-zip php7.1-curl php7.1-pgsql -y'
+    ]
+
+
+def get_php72():
+    return [
+        'sudo apt-get install php7.2 -y',
+        'sudo apt-get install php7.2-xml php7.2-mysql php7.2-gd php7.2-mbstring php7.2-json php7.2-intl'
+        ' php7.2-zip php7.2-curl php7.2-pgsql -y'
+    ]
+
+
+def get_php74():
+    return [
+        'sudo apt-get install php7.4 -y',
+        'sudo apt-get install php7.4-xml php7.4-mysql php7.4-gd php7.4-mbstring php7.4-json php7.4-intl'
+        ' php7.4-zip php7.4-curl php7.4-pgsql -y'
+    ]
+
+
+def get_git():
+    """Установка git"""
+    return [
+        'sudo apt install git',
+        'git config --global user.email "popckovM5@yandex.com"',
+        'git config --global user.name "PopckovS"'
+    ]
+
+
+def get_deployer():
+    """
+    Установка PHP deployer
+
+    Специальная программа для деплоя проекта на удаленный сервер.
+    """
+    return [
+        'sudo curl -LO https://deployer.org/deployer.phar',
+        'sudo mv deployer.phar /usr/local/bin/dep',
+        'sudo chmod +x /usr/local/bin/dep'
+    ]
+
+
+class InstallRegistration:
+    """"Класс для регистрации и установки пакетов"""
+
+    def __init__(self):
+        """Декларируем словарь для списков функций для колбэка"""
+        self.registered_functions = {}
+
+    def register(self, function):
+        """Получает все команды задекларированные в функции"""
+        self.registered_functions[function.__name__] = function()
+
+    def install_all_registered_function(self):
+        """Функция для запуска на исполнение всех команд."""
+        try:
+            for source in self.registered_functions:
+                for element in self.registered_functions[source]:
+                    os.system(element)
+        except Exception:
+            print("Во время установки что-то пошло не так.")
+            print(f"Ошибка на этапе отработки функции {source}")
+            print(f"При запуске команды {element}")
+
+
+IR = InstallRegistration()
+
+# регистрация функций для коллбэка
+IR.register(get_programms)
+IR.register(get_google_chrom)
+IR.register(get_apache2)
+IR.register(get_mysql)
+IR.register(get_php)
+IR.register(get_php56)
+IR.register(get_php71)
+IR.register(get_php72)
+IR.register(get_php74)
+IR.register(get_git)
+IR.register(get_deployer)
+
+IR.install_all_registered_function()
